@@ -553,105 +553,64 @@
         </div>
     </div>
 
-    <script>
-        // Data for all 7 CTA types, based on the provided analysis.
-        const ctaData = [
-            {
-                CTA_name: "NavbarCTA",
-                CTA_clicks: "212,923",
-                CTA_logins: "1,056",
-                CVR: "0.50%",
-                CTR: "3.18%"
-            },
-            {
-                CTA_name: "InlineCTA",
-                CTA_clicks: "76,338",
-                CTA_logins: "484",
-                CVR: "0.63%",
-                CTR: "1.14%"
-            },
-            {
-                CTA_name: "StickyCTA",
-                CTA_clicks: "296,039",
-                CTA_logins: "1,373",
-                CVR: "0.46%",
-                CTR: "4.42%"
-            },
-            {
-                CTA_name: "TopCTA",
-                CTA_clicks: "41,677",
-                CTA_logins: "382",
-                CVR: "0.92%",
-                CTR: "0.62%"
-            },
-            {
-                CTA_name: "ExitCTA",
-                CTA_clicks: "847,648",
-                CTA_logins: "995",
-                CVR: "0.12%",
-                CTR: "12.66%"
-            },
-            {
-                CTA_name: "RHSCTA",
-                CTA_clicks: "7,700",
-                CTA_logins: "74",
-                CVR: "0.96%",
-                CTR: "0.11%"
-            },
-            {
-                CTA_name: "BottomMiniCTA",
-                CTA_clicks: "3,711",
-                CTA_logins: "8",
-                CVR: "0.22%",
-                CTR: "0.06%"
+     <script>
+    // URL to the raw JSON file on GitHub
+    const dataUrl = 'https://raw.githubusercontent.com/siddheshagrawal-prog/Cleartax-CTA-Dashboard/refs/heads/main/cta_summary.json';
+
+    // Function to format CTA name for display
+    function formatCtaName(ctaName) {
+        return ctaName.replace(/([A-Z])/g, ' $1').trim();
+    }
+
+    // Function to display the modal with data for the clicked CTA
+    function showModal(ctaInfo) {
+        const modal = document.getElementById('cta-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalData = document.getElementById('modal-data');
+
+        modalTitle.textContent = `${formatCtaName(ctaInfo.CTA_name)} Performance`;
+
+        let dataHtml = '<table class="cta-data-table">';
+        dataHtml += '<tr><th>Metric</th><th>Value</th></tr>';
+        dataHtml += `<tr><td>Clicks</td><td>${ctaInfo.CTA_clicks}</td></tr>`;
+        dataHtml += `<tr><td>Logins</td><td>${ctaInfo.CTA_logins}</td></tr>`;
+        dataHtml += `<tr><td>CTR (Click-Through Rate)</td><td>${ctaInfo.CTR}</td></tr>`;
+        dataHtml += `<tr><td>CVR (Conversion Rate)</td><td>${ctaInfo.CVR}</td></tr>`;
+        dataHtml += '</table>';
+
+        modalData.innerHTML = dataHtml;
+        modal.style.display = 'flex';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        const modal = document.getElementById('cta-modal');
+        modal.style.display = 'none';
+    }
+
+    // Function to show the Exit Intent popup
+    function showExitIntentPopup() {
+        const exitCta = document.getElementById('exit-cta-container');
+        exitCta.style.display = 'flex';
+    }
+
+    // Function to hide the Exit Intent popup
+    function hideExitIntentPopup() {
+        document.getElementById('exit-cta-container').style.display = 'none';
+    }
+
+    // Fetches data and initializes the dashboard
+    async function initializeDashboard() {
+        try {
+            // Fetch the data from the live URL
+            const response = await fetch(dataUrl);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
             }
-        ];
+            const ctaData = await response.json();
 
-        // Function to format CTA name for display
-        function formatCtaName(ctaName) {
-            // Inserts a space before each capital letter, then trims.
-            return ctaName.replace(/([A-Z])/g, ' $1').trim();
-        }
+            // --- The rest of the logic remains the same ---
 
-        // Function to display the modal with data for the clicked CTA
-        function showModal(ctaInfo) {
-            const modal = document.getElementById('cta-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalData = document.getElementById('modal-data');
-            
-            modalTitle.textContent = `${formatCtaName(ctaInfo.CTA_name)} Performance`;
-            
-            let dataHtml = '<table class="cta-data-table">';
-            dataHtml += '<tr><th>Metric</th><th>Value</th></tr>';
-            dataHtml += `<tr><td>Clicks</td><td>${ctaInfo.CTA_clicks}</td></tr>`;
-            dataHtml += `<tr><td>Logins</td><td>${ctaInfo.CTA_logins}</td></tr>`;
-            dataHtml += `<tr><td>CTR (Click-Through Rate)</td><td>${ctaInfo.CTR}</td></tr>`;
-            dataHtml += `<tr><td>CVR (Conversion Rate)</td><td>${ctaInfo.CVR}</td></tr>`;
-            dataHtml += '</table>';
-            
-            modalData.innerHTML = dataHtml;
-            modal.style.display = 'flex';
-        }
-
-        // Function to close the modal
-        function closeModal() {
-            const modal = document.getElementById('cta-modal');
-            modal.style.display = 'none';
-        }
-        
-        // Function to show the Exit Intent popup
-        function showExitIntentPopup() {
-            const exitCta = document.getElementById('exit-cta-container');
-            exitCta.style.display = 'flex';
-        }
-        
-        // Function to hide the Exit Intent popup
-        function hideExitIntentPopup() {
-            document.getElementById('exit-cta-container').style.display = 'none';
-        }
-
-        // Initialize all CTAs and event listeners when the page loads
-        function initializeDashboard() {
             // Map CTA HTML classes to their corresponding data names
             const ctaMapping = {
                 'navbar-cta': 'NavbarCTA',
@@ -665,11 +624,10 @@
             
             // Add click event listeners to all CTA buttons
             Object.keys(ctaMapping).forEach(ctaClass => {
-                // Query for all elements with the class, as there might be multiple (e.g., in the exit popup)
                 document.querySelectorAll(`.${ctaClass}`).forEach(ctaButton => {
                     if (ctaButton) {
                         ctaButton.addEventListener('click', (e) => {
-                            e.preventDefault(); // Prevent default button behavior
+                            e.preventDefault();
                             const ctaName = ctaMapping[ctaClass];
                             const ctaInfo = ctaData.find(item => item.CTA_name === ctaName);
                             if (ctaInfo) {
@@ -681,38 +639,34 @@
                     }
                 });
             });
-            
-            // --- Event Listeners for Modals and Popups ---
 
-            // Main modal close button
+            // Event Listeners for Modals and Popups
             document.querySelector('.close-button').addEventListener('click', closeModal);
-
-            // Close main modal when clicking outside of it
             window.addEventListener('click', (event) => {
                 const modal = document.getElementById('cta-modal');
-                if (event.target === modal) {
-                    closeModal();
-                }
+                if (event.target === modal) closeModal();
             });
-            
-            // Exit intent popup close button
             document.querySelector('.exit-close-button').addEventListener('click', hideExitIntentPopup);
 
             // Exit Intent logic
             let exitIntentFired = false;
             document.addEventListener('mouseleave', (e) => {
-                // Fires when the mouse leaves the viewport
                 if (e.clientY < 0 && !exitIntentFired) {
                     showExitIntentPopup();
                     exitIntentFired = true;
                 }
             });
 
-            console.log('Dashboard initialized successfully with 7 CTAs.');
-        }
+            console.log('Dashboard initialized successfully with live data.');
 
-        // Start initialization when DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', initializeDashboard);
-    </script>
+        } catch (error) {
+            console.error('Failed to initialize dashboard:', error);
+            alert('Could not load performance data. Please check the console for errors.');
+        }
+    }
+
+    // Start initialization when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', initializeDashboard);
+</script>
 </body>
 </html>
