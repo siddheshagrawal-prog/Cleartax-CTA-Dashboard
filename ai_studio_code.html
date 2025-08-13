@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleartax Dashboard Prototype</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #4d5966;
+            background-color: #f5f7fa;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333f48;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav li {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333f48;
+            cursor: pointer;
+        }
+
+        nav li:hover {
+            color: #1976d2;
+        }
+
+        /* CTA Button Styles */
+        .cta-button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #1565c0;
+        }
+
+        .cta-button:active {
+            background-color: #0d47a1;
+        }
+
+        /* Top Banner Styles */
+        .top-banner {
+            background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+            color: white;
+            padding: 40px 0;
+        }
+
+        .banner-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner-content {
+            width: 60%;
+        }
+
+        .banner-content h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .banner-content p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .banner-image {
+            width: 35%;
+            text-align: right;
+        }
+
+        .banner-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Main Content Layout */
+        .main-container {
+            display: flex;
+            margin-top: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Left Sidebar */
+        .sidebar-left {
+            width: 20%;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            align-self: flex-start;
+        }
+
+        .sidebar-left h3 {
+            color: #333f48;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .sidebar-left ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eaeaea;
+            color: #4d5966;
+            cursor: pointer;
+        }
+
+        .sidebar-left ul li:hover {
+            color: #1976d2;
+        }
+
+        .sidebar-left ul li.active {
+            color: #1976d2;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .content {
+            width: 60%;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 0 20px;
+        }
+
+        .content h1 {
+            color: #333f48;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            margin-bottom: 20px;
+        }
+
+        .content-meta {
+            display: flex;
+            align-items: center;
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .content-meta span {
+            margin-right: 20px;
+        }
+
+        .content-box {
+            background-color: #e8f4fd;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 30px 0;
+        }
+
+        .inline-cta-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .bottom-mini-calc-container {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f5f7fa;
+            border: 1px dashed #ced4da;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .bottom-mini-calc-container h3 {
+             color: #333f48;
+             margin-bottom: 15px;
+        }
+
+        /* Right Sidebar */
+        .sidebar-right {
+            width: 20%;
+            align-self: flex-start;
+        }
+
+        .rhs-banner {
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .rhs-banner h3 {
+            color: #333f48;
+            font-size: 20px;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .rhs-banner ul {
+            margin-bottom: 20px;
+        }
+
+        .rhs-banner ul li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .rhs-banner ul li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Sticky CTA */
+        .sticky-cta-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 99;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #6c757d;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-button:hover {
+            color: #333f48;
+        }
+
+        #modal-title {
+            color: #333f48;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .cta-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .cta-data-table th, .cta-data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .cta-data-table th {
+            background-color: #f5f7fa;
+            font-weight: 600;
+            color: #333f48;
+        }
+        
+        /* Exit Intent CTA Styles */
+        .exit-cta-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .exit-cta-content {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .exit-cta-content h2 {
+            color: #333f48;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .exit-cta-content p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #4d5966;
+        }
+        
+        .exit-cta-button {
+            padding: 12px 30px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .exit-close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #6c757d;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .exit-close-button:hover {
+            color: #333f48;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar-left, .content, .sidebar-right {
+                width: 100%;
+                margin: 0 0 20px 0;
+            }
+
+            .banner-container {
+                flex-direction: column;
+            }
+
+            .banner-content, .banner-image {
+                width: 100%;
+                text-align: center;
+            }
+
+            .banner-image {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 15px;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with logo and navbar -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">cleartax</div>
+            <nav>
+                <ul>
+                    <li>Products</li>
+                    <li>Resources</li>
+                    <li>Company</li>
+                    <li><button class="cta-button navbar-cta">Login/Signup</button></li> <!-- Navbar CTA -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Top Banner CTA -->
+    <div class="top-banner">
+        <div class="container banner-container">
+            <div class="banner-content">
+                <h2>Trading Loss ≠ Refund loss</h2>
+                <p>Auto-setoff and carry forward of losses with ClearTax</p>
+                <button class="cta-button top-banner-cta">File Now</button>
+            </div>
+            <div class="banner-image">
+                <!-- Placeholder for image -->
+                <div style="width: 300px; height: 200px; background-color: rgba(255,255,255,0.2); border-radius: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container main-container">
+        <div class="sidebar-left">
+            <h3>Index</h3>
+            <ul>
+                <li class="active">New Tax Regime Slabs for FY 2025-26</li>
+                <li>Income Tax Slab Rates for FY 2025-26</li>
+                <li>Example - FY 2025-26 (AY 2026-27)</li>
+                <li>Income Tax Slab Rates for FY 2024-25</li>
+                <li>Example - FY 2024-25 (AY 2025-26)</li>
+                <li>Tax Comparison Under New Tax Regime</li>
+                <li>Deductions Allowed Under New Tax Regime</li>
+            </ul>
+        </div>
+        
+        <div class="content">
+            <h1>New Income Tax Slabs for FY 2025-26 (AY 2026-27)</h1>
+            
+            <div class="content-meta">
+                <span>By Ektha Surana</span>
+                <span>Updated on: Jul 31st, 2025</span>
+                <span>6 min read</span>
+            </div>
+            
+            <div class="content-box">
+                <h2>New Tax Regime Slabs for FY 2025-26</h2>
+                <p>The new income tax slabs under the new tax regime for FY 2025-26 (AY 2026-27) are: Nil for income up to Rs. 4 lakh, 5% for Rs. 4 lakh - Rs. 8 lakh, 10% for Rs. 8 lakh - Rs. 12 lakh, 15% for Rs. 12 lakh - Rs. 16 lakh, 20% for Rs. 16 lakh - Rs. 20 lakh, 25% for Rs. 20 lakh - Rs. 24 lakh, and 30% for income above Rs. 24 lakh.</p>
+            </div>
+            
+            <p>Income tax slabs define the tax rates applicable based on your annual income and differ under the old and new tax regimes. For FY 2025-26 (AY 2026-27) and FY 2024-25 (AY 2025-26), the new regime is the default with revised slab rates and a higher rebate limit, while the old regime allows deductions like HRA and 80C.</p>
+            
+            <!-- Inline CTA -->
+            <div class="inline-cta-container">
+                <button class="cta-button inline-cta">File Now</button>
+            </div>
+            
+            <p>Understanding the latest income tax slab rates helps salaried individuals, professionals, and senior citizens choose the most tax-efficient regime. Compare both regimes to determine which one will result in lower tax liability for your specific financial situation.</p>
+            
+            <!-- Bottom Mini Calculator CTA -->
+            <div class="bottom-mini-calc-container">
+                <h3>Quick Tax Check</h3>
+                <p>Use our mini calculator to get a quick estimate of your tax liability.</p>
+                <button class="cta-button bottom-mini-calc-cta">Launch Calculator</button>
+            </div>
+        </div>
+        
+        <div class="sidebar-right">
+            <div class="rhs-banner">
+                <h3>Maximize Refund. Minimize Tax.</h3>
+                <ul>
+                    <li>100% accuracy</li>
+                    <li>No notice stress</li>
+                    <li>24/7 support</li>
+                </ul>
+                <!-- RHS Banner CTA -->
+                <button class="cta-button rhs-banner-cta">File Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky/Floating CTA at bottom -->
+    <div class="sticky-cta-container">
+        <button class="cta-button sticky-cta">Calculate Tax</button>
+    </div>
+
+    <!-- Modal for displaying CTA data -->
+    <div id="cta-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-title">CTA Data</h2>
+            <div id="modal-data">
+                <!-- CTA data will be displayed here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exit Intent CTA Popup -->
+    <div id="exit-cta-container" class="exit-cta-container">
+        <div class="exit-cta-content">
+            <span class="exit-close-button">&times;</span>
+            <h2>Don't Miss Out on Tax Savings!</h2>
+            <p>File your taxes now and maximize your refund with our expert guidance.</p>
+            <button class="cta-button exit-cta-button exit-cta">Get Started Now</button>
+        </div>
+    </div>
+
+    <script>
+        // Data for all 7 CTA types, based on the provided analysis.
+        const ctaData = [
+            {
+                CTA_name: "NavbarCTA",
+                CTA_clicks: "212,923",
+                CTA_logins: "1,056",
+                CVR: "0.50%",
+                CTR: "3.18%"
+            },
+            {
+                CTA_name: "InlineCTA",
+                CTA_clicks: "76,338",
+                CTA_logins: "484",
+                CVR: "0.63%",
+                CTR: "1.14%"
+            },
+            {
+                CTA_name: "StickyCTA",
+                CTA_clicks: "296,039",
+                CTA_logins: "1,373",
+                CVR: "0.46%",
+                CTR: "4.42%"
+            },
+            {
+                CTA_name: "TopCTA",
+                CTA_clicks: "41,677",
+                CTA_logins: "382",
+                CVR: "0.92%",
+                CTR: "0.62%"
+            },
+            {
+                CTA_name: "ExitCTA",
+                CTA_clicks: "847,648",
+                CTA_logins: "995",
+                CVR: "0.12%",
+                CTR: "12.66%"
+            },
+            {
+                CTA_name: "RHSCTA",
+                CTA_clicks: "7,700",
+                CTA_logins: "74",
+                CVR: "0.96%",
+                CTR: "0.11%"
+            },
+            {
+                CTA_name: "BottomMiniCTA",
+                CTA_clicks: "3,711",
+                CTA_logins: "8",
+                CVR: "0.22%",
+                CTR: "0.06%"
+            }
+        ];
+
+        // Function to format CTA name for display
+        function formatCtaName(ctaName) {
+            // Inserts a space before each capital letter, then trims.
+            return ctaName.replace(/([A-Z])/g, ' $1').trim();
+        }
+
+        // Function to display the modal with data for the clicked CTA
+        function showModal(ctaInfo) {
+            const modal = document.getElementById('cta-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalData = document.getElementById('modal-data');
+            
+            modalTitle.textContent = `${formatCtaName(ctaInfo.CTA_name)} Performance`;
+            
+            let dataHtml = '<table class="cta-data-table">';
+            dataHtml += '<tr><th>Metric</th><th>Value</th></tr>';
+            dataHtml += `<tr><td>Clicks</td><td>${ctaInfo.CTA_clicks}</td></tr>`;
+            dataHtml += `<tr><td>Logins</td><td>${ctaInfo.CTA_logins}</td></tr>`;
+            dataHtml += `<tr><td>CTR (Click-Through Rate)</td><td>${ctaInfo.CTR}</td></tr>`;
+            dataHtml += `<tr><td>CVR (Conversion Rate)</td><td>${ctaInfo.CVR}</td></tr>`;
+            dataHtml += '</table>';
+            
+            modalData.innerHTML = dataHtml;
+            modal.style.display = 'flex';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('cta-modal');
+            modal.style.display = 'none';
+        }
+        
+        // Function to show the Exit Intent popup
+        function showExitIntentPopup() {
+            const exitCta = document.getElementById('exit-cta-container');
+            exitCta.style.display = 'flex';
+        }
+        
+        // Function to hide the Exit Intent popup
+        function hideExitIntentPopup() {
+            document.getElementById('exit-cta-container').style.display = 'none';
+        }
+
+        // Initialize all CTAs and event listeners when the page loads
+        function initializeDashboard() {
+            // Map CTA HTML classes to their corresponding data names
+            const ctaMapping = {
+                'navbar-cta': 'NavbarCTA',
+                'top-banner-cta': 'TopCTA',
+                'inline-cta': 'InlineCTA',
+                'rhs-banner-cta': 'RHSCTA',
+                'sticky-cta': 'StickyCTA',
+                'exit-cta': 'ExitCTA',
+                'bottom-mini-calc-cta': 'BottomMiniCTA'
+            };
+            
+            // Add click event listeners to all CTA buttons
+            Object.keys(ctaMapping).forEach(ctaClass => {
+                // Query for all elements with the class, as there might be multiple (e.g., in the exit popup)
+                document.querySelectorAll(`.${ctaClass}`).forEach(ctaButton => {
+                    if (ctaButton) {
+                        ctaButton.addEventListener('click', (e) => {
+                            e.preventDefault(); // Prevent default button behavior
+                            const ctaName = ctaMapping[ctaClass];
+                            const ctaInfo = ctaData.find(item => item.CTA_name === ctaName);
+                            if (ctaInfo) {
+                                showModal(ctaInfo);
+                            } else {
+                                console.error(`No data found for CTA: ${ctaName}`);
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // --- Event Listeners for Modals and Popups ---
+
+            // Main modal close button
+            document.querySelector('.close-button').addEventListener('click', closeModal);
+
+            // Close main modal when clicking outside of it
+            window.addEventListener('click', (event) => {
+                const modal = document.getElementById('cta-modal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Exit intent popup close button
+            document.querySelector('.exit-close-button').addEventListener('click', hideExitIntentPopup);
+
+            // Exit Intent logic
+            let exitIntentFired = false;
+            document.addEventListener('mouseleave', (e) => {
+                // Fires when the mouse leaves the viewport
+                if (e.clientY < 0 && !exitIntentFired) {
+                    showExitIntentPopup();
+                    exitIntentFired = true;
+                }
+            });
+
+            console.log('Dashboard initialized successfully with 7 CTAs.');
+        }
+
+        // Start initialization when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+    </script>
+</body>
+</html>

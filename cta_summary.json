@@ -1,0 +1,51 @@
+[
+    {
+        "CTA_name": "NavbarCTA",
+        "CTA_clicks": "212,923",
+        "CTA_logins": "1,056",
+        "CTR": "3.18%",
+        "CVR": "0.50%"
+    },
+    {
+        "CTA_name": "InlineCTA",
+        "CTA_clicks": "76,338",
+        "CTA_logins": "484",
+        "CTR": "1.14%",
+        "CVR": "0.63%"
+    },
+    {
+        "CTA_name": "StickyCTA",
+        "CTA_clicks": "296,039",
+        "CTA_logins": "1,373",
+        "CTR": "4.42%",
+        "CVR": "0.46%"
+    },
+    {
+        "CTA_name": "TopCTA",
+        "CTA_clicks": "41,677",
+        "CTA_logins": "382",
+        "CTR": "0.62%",
+        "CVR": "0.92%"
+    },
+    {
+        "CTA_name": "ExitCTA",
+        "CTA_clicks": "847,648",
+        "CTA_logins": "995",
+        "CTR": "12.66%",
+        "CVR": "0.12%"
+    },
+    {
+        "CTA_name": "RHSCTA",
+        "CTA_clicks": "7,700",
+        "CTA_logins": "74",
+        "CTR": "0.11%",
+        "CVR": "0.96%"
+    },
+    {
+        "CTA_name": "BottomMiniCTA",
+        "CTA_clicks": "3,711",
+        "CTA_logins": "8",
+        "CTR": "0.06%",
+        "CVR": "0.22%"
+    }
+]
